@@ -127,25 +127,17 @@ The interactive dashboard provides insights into:
 
 ## 📁 Project Structure
 
-```
+```text
 Retail-Customer-Shopping-Behavior-Analysis/
 │
-├── data/
-│   └── customer.csv
-│
-├── notebooks/
-│   └── Retail_Customer_Analysis.ipynb
-│
-├── sql/
-│   └── Retail_SQL_Queries.sql
-│
-├── powerbi/
-│   └── Retail_Customer_Shopping_Dashboard.pbix
-│
-├── images/
-│   └── dashboard.png
-│
-└── README.md
+├── README.md
+├── Retail_Customer_Analysis.ipynb
+├── Retail_SQL_Queries.sql
+├── Retail_Customer_Shopping_Dashboard.pbix
+├── customer.csv
+├── dashboard.png
+├── .gitignore
+└── LICENSE
 ```
 
 ---
