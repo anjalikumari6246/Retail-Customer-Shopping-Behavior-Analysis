@@ -55,14 +55,14 @@ End-to-end analysis of 3,900 retail customer transactions using **Python, Postgr
 ## How to run
 1. Clone the repository and install: `pip install pandas numpy sqlalchemy psycopg2-binary`.
 2. Set your database password as an environment variable: `PG_PASSWORD`.
-3. Run `Retail_Customer_Analysis.ipynb` to clean the data and load it into PostgreSQL.
+3. Run `customer_shopping_behavior.ipynb` to clean the data and load it into PostgreSQL.
 4. Run `Retail_SQL_Queries.sql` in pgAdmin or any SQL client.
 5. Open `Retail_Customer_Shopping_Dashboard.pbix` in Power BI Desktop.
 
 ## Repository contents
 ```
 ├── README.md
-├── Retail_Customer_Analysis.ipynb      # cleaning, feature engineering, load to PostgreSQL
+├── customer_shopping_behavior.ipynb     # cleaning, feature engineering, load to PostgreSQL
 ├── Retail_SQL_Queries.sql              # 10 business queries
 ├── Retail_Customer_Shopping_Dashboard.pbix
 ├── customer.csv                        # source data
