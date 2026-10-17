@@ -1,158 +1,80 @@
-# 🛍️ Retail Customer Shopping Behavior Analysis
+# Retail Customer Shopping Behavior Analysis
 
-An end-to-end retail analytics project using Python, PostgreSQL, SQL, and Power BI to analyze customer shopping behavior and generate actionable business insights.
+End-to-end analysis of 3,900 retail customer transactions using **Python, PostgreSQL, SQL and Power BI**, finding where spend differs across customer groups and where it does not.
 
-## 📊 Project Snapshot
+![Dashboard](dashboard.png)
 
-**Domain:** Retail Analytics
+## Project snapshot
+| | |
+|---|---|
+| Domain | Retail analytics |
+| Data | 3,900 transactions, 18 columns (public customer shopping dataset, [add source link]) |
+| Tools | Python (pandas, NumPy, SQLAlchemy), PostgreSQL, SQL, Power BI |
+| Deliverables | Cleaned dataset, 10 SQL business queries, one-page Power BI dashboard |
 
-**Tools:** Python, Pandas, PostgreSQL, SQL, Power BI
+## Business questions
+1. Which customer groups (age, gender, subscription status) spend the most?
+2. Do subscriptions or discounts change how much customers spend per purchase?
+3. Which products and categories drive revenue?
+4. How loyal is the customer base?
 
-**Dataset:** Customer Shopping Trends Dataset
+## Key findings
+- **The customer base skews male (68%), but spend per purchase is the same.** Men average $59.54 per purchase and women $60.25. Men's higher total revenue ($158K vs $75K) comes from having more customers, not from spending more.
+- **Subscription does not lift spend.** Subscribers (27% of customers) average $59.49 vs $59.87 for non-subscribers.
+- **Discounts are not increasing basket size.** 43% of purchases used a discount, and those purchases averaged $59.28 vs $60.13 without. The gap is under $1, so the supported conclusion is that discounts are not raising spend. The business should test whether they are worth the margin they cost.
+- **The 18-31 group has the highest revenue ($62K), mainly because it is the largest group** (1,028 customers). Average purchase is about $60 in every age group.
+- **Revenue is spread evenly across products.** The top five products (Blouse, Shirt, Dress, Pants, Jewelry) each bring in about $10K, and the 25 products average $9.3K, so no single product dominates. By category, Clothing is the largest at 45% of revenue.
+- **The customer base is mostly loyal.** 80% of customers have more than 10 previous purchases, 18% are returning (2-10) and 2% are new.
 
-**Project Type:** End-to-End Data Analytics
+## Recommendations
+- Run a controlled test of discount levels against margin before extending promotions, since discounted purchases are not larger.
+- Review the value of the subscription programme, because subscribers are not spending more per purchase.
+- Plan acquisition and retention around loyal customers, who make up most of the base.
 
-**Dashboard:** Interactive Power BI Dashboard
+## Method
+**Data preparation (Python)**
+- Standardised column names (snake_case).
+- Filled 37 missing review ratings (0.9%) with the median rating of the product category.
+- Dropped `promo_code_used`, which was identical to `discount_applied` in every row.
+- Created `age_group` (quartiles of age, about 25% of customers each: 18-31, 32-44, 45-57, 58-70) and `purchase_frequency_days` (purchase frequency converted to numbers).
+- Checked for duplicate rows: none found.
 
-## 📌 Project Overview
+**Storage and analysis (PostgreSQL + SQL)**
+- Loaded the cleaned data into PostgreSQL and wrote 10 queries covering revenue by gender and age group, discount behaviour, subscriber comparison, top products per category (window functions), and new/returning/loyal segmentation.
 
-This project analyzes customer shopping behavior in a retail store using Python, PostgreSQL, SQL, and Power BI. The objective is to uncover purchasing patterns, customer demographics, product performance, and shipping preferences to support data-driven business decisions.
+**Dashboard (Power BI)**
+- KPI cards: customers, total revenue, average purchase, average review rating.
+- Charts: revenue by age group, average purchase by gender, subscription status and discount, customer share by gender, and top products by revenue.
+- Slicers for category, gender, season, location and shipping type.
 
-The project follows a complete data analytics workflow, including data cleaning, feature engineering, SQL-based business analysis, and interactive dashboard development.
+## Limitations
+- The dataset has no dates, so trends over time and retention cannot be analysed.
+- It has one row per customer, so repeat purchase behaviour is inferred from `previous_purchases` only.
+- Most group differences are small (around $1 in average purchase), so findings describe patterns, not proven effects.
 
-## 🎯 Objectives
+## How to run
+1. Clone the repository and install: `pip install pandas numpy sqlalchemy psycopg2-binary`.
+2. Set your database password as an environment variable: `PG_PASSWORD`.
+3. Run `Retail_Customer_Analysis.ipynb` to clean the data and load it into PostgreSQL.
+4. Run `Retail_SQL_Queries.sql` in pgAdmin or any SQL client.
+5. Open `Retail_Customer_Shopping_Dashboard.pbix` in Power BI Desktop.
 
-- Analyze customer purchasing behavior.
-- Identify high-revenue customer segments.
-- Evaluate product and category performance.
-- Examine the impact of discounts and shipping methods on revenue.
-- Build an interactive dashboard for business decision-making.
-
----
-
-## 🛠️ Tech Stack
-
-- Python
-- Pandas
-- NumPy
-- PostgreSQL
-- SQL
-- Power BI
-
----
-
-## 📂 Project Workflow
-
+## Repository contents
 ```
-Customer Dataset
-        │
-        ▼
-Data Cleaning & Feature Engineering (Python)
-        │
-        ▼
-Data Storage (PostgreSQL)
-        │
-        ▼
-Business Analysis (SQL)
-        │
-        ▼
-Interactive Dashboard (Power BI)
-```
-
----
-
-## 📊 Data Preparation
-
-### Data Cleaning
-- Removed duplicate records.
-- Standardized column names.
-- Handled missing values.
-- Corrected data types.
-
-### Feature Engineering
-- Created Age Group from customer age.
-- Converted purchase frequency into numerical values.
-- Created additional analytical columns for reporting.
-
----
-
-## 🗄️ SQL Analysis
-
-Business questions explored include:
-
-- Revenue by gender
-- Revenue by age group
-- Average purchase amount by subscription status
-- Top revenue-generating products
-- Revenue by shipping type
-- Revenue by discount usage
-- Customer segmentation based on purchase history
-- Product performance analysis
-- Repeat customer analysis
-
----
-
-## 📈 Power BI Dashboard
-
-The interactive dashboard provides insights into:
-
-- Total Customers
-- Total Revenue
-- Average Purchase Amount
-- Average Review Rating
-- Revenue by Age Group
-- Revenue by Gender
-- Average Purchase by Subscription Status
-- Top Revenue-Generating Products
-- Revenue by Shipping Type and Discount
-
----
-
-## 💡 Key Business Insights
-
-- Young Adult customers generated the highest revenue.
-- Male customers contributed a larger share of total revenue.
-- Blouse, Shirt, Dress, Pants, and Jewelry were the top-performing products.
-- Average purchase amount was nearly the same for subscribers and non-subscribers.
-- Free Shipping generated the highest revenue among shipping methods.
-- Discounts significantly influenced revenue across shipping options.
-
----
-
-## 📷 Dashboard Preview
-
-![Retail Customer Shopping Dashboard](dashboard.png)
-
----
-
-## 📁 Project Structure
-
-```text
-Retail-Customer-Shopping-Behavior-Analysis/
-│
 ├── README.md
-├── Retail_Customer_Analysis.ipynb
-├── Retail_SQL_Queries.sql
+├── Retail_Customer_Analysis.ipynb      # cleaning, feature engineering, load to PostgreSQL
+├── Retail_SQL_Queries.sql              # 10 business queries
 ├── Retail_Customer_Shopping_Dashboard.pbix
-├── customer.csv
-├── dashboard.png
-├── .gitignore
+├── customer.csv                        # source data
+├── dashboard.png                       # dashboard preview
 └── LICENSE
 ```
 
----
+## Future improvements
+- RFM customer segmentation.
+- Predict customer spend with a machine learning model.
+- Publish the dashboard through Power BI Service.
+- Automate the cleaning and profiling step with a reusable Python script.
 
-## 🚀 Future Improvements
-
-- Develop customer segmentation using RFM Analysis.
-- Predict customer spending using machine learning.
-- Publish the dashboard using Power BI Service.
-- Create additional drill-through report pages.
-
----
-
-## 👩‍💻 Author
-
-**Anjali Kumari**
-
-If you found this project helpful, feel free to ⭐ the repository.
+## Author
+**Anjali Kumari** · [www.linkedin.com/in/anjali-kumari-b5581823a] · [kumarianjali6246@gmail.com]pository.
